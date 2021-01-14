@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import MessageDashboard from '../views/MessageDashboard.vue'
+import MessageCompose from '../views/MessageCompose.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +11,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/mail',
+    name: 'MessageDashboard',
+    component: MessageDashboard
+  },
+  {
+    path: '/compose',
+    name: 'MessageCompose',
+    component: MessageCompose
   },
   {
     path: '/about',
