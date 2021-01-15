@@ -1,14 +1,15 @@
 <template>
-  <form class="message-compose">
-    <input type="text" placeholder="Sender" /><br />
-    <input type="text" placeholder="Receiver" /><br />
-    <input type="text" placeholder="Subject" /><br />
-    <textarea name="" id="" cols="30" rows="10"></textarea>
+  <form @submit.prevent="sendMessage" class="message-compose">
+    <input v-model="message.sender" type="text" placeholder="Sender" /><br />
+    <input v-model="message.receiver" type="text" placeholder="Receiver" /><br />
+    <input v-model="message.subject" type="text" placeholder="Subject" /><br />
+    <textarea v-model="message.text" name="" id="" cols="30" rows="10"></textarea>
+    <button>Send</button>
   </form>
 </template>
 
 <script>
-import { messageService } from '../services/message-service';
+// const clone = require('rfdc')();
 
 export default {
   name: 'MessageCompose',
@@ -20,6 +21,12 @@ export default {
         subject: '',
         text: ''
       }
+    }
+  },
+  methods: {
+    sendMessage() {
+      const message = this.$clone(this.message);
+      this.$store.dispatch('writeMessage', message);
     }
   }
 }

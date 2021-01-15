@@ -2,18 +2,18 @@ import { httpService } from './http-service';
 
 export const messageService = {
   query,
-  sendMessage,
-  deleteMessage
+  write,
+  remove
 }
 
 function query() {
   return httpService.get('messages');
 }
 
-function sendMessage(message) {
-  return httpService.post('messages', message)
+function write(message) {
+  return httpService.post('messages', message);
 }
 
-function deleteMessage(message) {
-  return httpService.post('messages', message)
+function remove(messageId) {
+  return httpService.delete(`messages/${messageId}`);
 }

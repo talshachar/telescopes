@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-const port = 3000;
+
+// Express config
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, 'public')));
@@ -14,32 +16,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(cors(corsOptions));
 }
 
-app.get('/api/messages', (req, res) => {
-  res.send([
-    {
-      _id: 'm4rwWxJHr7',
-      sender: {},
-      receiver: {},
-      subject: 'Hello world!',
-      text: 'Lorem ipsum dolor sit amet',
-      creation_date: 1610575415097
-    },
-    {
-      _id: 'm87unlTN3q',
-      sender: {},
-      receiver: {},
-      subject: 'Hola Mundo',
-      text: 'The quick brown fox jumps over the lazy dog',
-      creation_date: 1610575415097
-    }
-  ]);
-});
+// Routes
+const messagesRoutes = require('./api/messages')
+app.use('/api/messages', messagesRoutes);
 
-app.post('/api/messages', (req, res) => {
-  const message = req.body;
-  res.send(message)
-});
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`);
 });
